@@ -1,15 +1,15 @@
-function summaArray() {
+function multiplyArrays() {
   var result = [];
   for (var i=0; i<arguments.length; i++) {
-      var summa = 0;
+      var product = 1;
       for (var j=0; j<arguments[i].length; j++) {
-          summa = summa + arguments[i][j];
+          product *= arguments[i][j];
       }
-      result.push(summa)
+      result.push(product)
   }
   console.log(result)
 }
 
-summaArray([1,2,3,4,], [2,3,4,5,6], [2,3,4,5,16])
+multiplyArrays([1,2,3,4,], [2,3,4,5,6], [2,3,4,5,16])
 
 
