@@ -1,7 +1,8 @@
 function multiplyArrays() {
   var result = [];
+  var product = 1;
   for (var i=0; i<arguments.length; i++) {
-      var product = 1;
+      product = 1;
       for (var j=0; j<arguments[i].length; j++) {
           product *= arguments[i][j];
       }
