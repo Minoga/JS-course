@@ -19,15 +19,10 @@ var e = function(){
 }
 
 function cascadeCall(){
-    var result = 0;
-    var length = arguments.length-1;
+    var result = arguments[arguments.length-1]();
+    var length = arguments.length-2;
     for (var i=length; i>=0; i--) {
-        if (i == length){
-            result=arguments[i]();
-        }
-        else {
-            result=arguments[i](result);
-        }
+        result=arguments[i](result);
     }
     return result;
 }

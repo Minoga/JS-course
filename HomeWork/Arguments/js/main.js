@@ -1,6 +1,6 @@
 function multiplyArrays() {
-  var result = [];
-  var product = 1;
+  var result = [],
+      product;
   for (var i=0; i<arguments.length; i++) {
       product = 1;
       for (var j=0; j<arguments[i].length; j++) {
