@@ -1,26 +1,27 @@
 function createKitten(name, phrase) {
-    this.name = name;
-    this.phrase = phrase;
-    this.die = function() {
-        return this.phrase;
-    };
+    return {
+         name : name,
+         die : function() {
+             console.log(phrase)
+         }
+    }
 };
 
 var bag = {
     cats : {},
-    putCat : function(newCat) {
+    put : function(newCat) {
         this.cats[newCat.name] = newCat;
     },
-    getCat : function(prison) {
-        return this.cats[prison]
+    getKitten : function(name) {
+        return this.cats[name]
     },
-    sinkCat : function() {
+    sink : function() {
         for (var cat in this.cats) 
             {
-                console.log(this.cats[cat].die());
+                this.cats[cat].die();
             }   
     }
-}
+};
 
 
 
