@@ -2,10 +2,10 @@ function createKitten(name, phrase) {
     return {
          name : name,
          die : function() {
-             console.log(phrase)
+             console.log(phrase);
          }
     }
-};
+}
 
 var bag = {
     cats : {},
@@ -13,13 +13,12 @@ var bag = {
         this.cats[newCat.name] = newCat;
     },
     getKitten : function(name) {
-        return this.cats[name]
+        return this.cats[name];
     },
     sink : function() {
-        for (var cat in this.cats) 
-            {
-                this.cats[cat].die();
-            }   
+        for (var catName in this.cats) {
+                this.cats[catName].die();
+            }
     }
 };
 
