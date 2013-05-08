@@ -1,3 +1,9 @@
+/**
+ * createKitten() возвращает объект у которого есть свойство name и метод die
+ * @param {String} name строка, которая задает имя
+ * @param {String} phrase строка, которая задает фразу
+ * @returns {Object} объект , который возвращает функция
+*/
 function createKitten(name, phrase) {
     return {
          name : name,
