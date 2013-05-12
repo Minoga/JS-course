@@ -9,13 +9,7 @@ function multiplyArrays() {
         resultArray = [],
         sum,
         length = arguments.length - 1;
-    [].forEach.call(arguments, function (item, i) {
-        argumentsArray.push(item);
-        if (i == length) {
-            return argumentsArray;
-        }
-    });
-    argumentsArray.forEach(function (item) {
+    [].forEach.call(arguments, function (item) {
         item.reduce(function (previousValue, currentItem) {
             sum = previousValue * currentItem;
             return sum;
@@ -23,6 +17,7 @@ function multiplyArrays() {
         resultArray.push(sum);
         sum = 0;
     });
+
     return resultArray;
 }
 
