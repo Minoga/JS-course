@@ -5,19 +5,14 @@
  */
 
 function multiplyArrays() {
-    var argumentsArray = [],
-        resultArray = [],
-        sum,
-        length = arguments.length - 1;
-    [].forEach.call(arguments, function (item) {
-        item.reduce(function (previousValue, currentItem) {
-            sum = previousValue * currentItem;
-            return sum;
+    var resultArray = [],
+        portion;
+    resultArray = [].map.call(arguments, function (item) {
+        return item.reduce(function (previousValue, currentItem) {
+            portion = previousValue * currentItem;
+            return portion;
         });
-        resultArray.push(sum);
-        sum = 0;
     });
-
     return resultArray;
 }
 
