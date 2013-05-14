@@ -7,15 +7,8 @@
  */
 function cascadeCall() {
     var functionsArray = [],
-        result = arguments[arguments.length - 1](),
-        length = arguments.length - 2;
-    [].forEach.call(arguments, function (item, i) {
-        functionsArray.push(item);
-        if (i == length) {
-            return functionsArray;
-        }
-    });
-    functionsArray.reduceRight(function (previousValue, currentItem) {
+        result = arguments[arguments.length - 1]();
+    [].reduceRight.call(arguments, function (previousValue, currentItem) {
         result = currentItem(previousValue);
         return result;
     }, result);

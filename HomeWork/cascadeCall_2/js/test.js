@@ -18,6 +18,6 @@ var e = function () {
     return 5;
 };
 
-console.assert(cascadeCall(a, e) == 10, "Error");
-console.assert(cascadeCall(b, e) == 15, "Error");
-console.assert(cascadeCall(b, e) == 16, "Error");
+console.assert(cascadeCall(a, e) == 10, "Incorrect number");
+console.assert(cascadeCall(b, e) == 15, "Incorrect number");
+console.assert(cascadeCall(b, e) == 16, "Incorrect number");
