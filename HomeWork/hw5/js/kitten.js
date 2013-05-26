@@ -9,7 +9,7 @@ function Kitten (name, phrase) {
     this.phrase = phrase;
 }
 /**
- * Функция выводящая последние слова котенка.
+ * Функция, выводящая последние слова котенка.
  */
 Kitten.prototype.die = function () {
     console.log(this.phrase);
