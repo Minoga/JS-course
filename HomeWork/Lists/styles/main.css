@@ -1,0 +1,55 @@
+/*page*/
+html, body {width:100%;height:100%;}
+body {padding:0; margin:0;background: #fff;}
+
+/*
+  #SomeBox
+  {
+    position - position [ left , top ] ,
+    liquid model - float, clear,
+    block modle - display, width, height, margin, padding, overflow,
+    visual property - background, border,
+    text property - list-style, text-align
+   }
+*/
+
+/*design*/
+a img{border:0;}
+
+/*navigation*/
+a {font:1em/1.5 "Trebuchet MS"; color:#1f70a8;text-decoration:underline;}
+a:hover {text-decoration:none;}
+:focus, a:active { outline: none; }
+form :focus, form a:active { outline:1px dotted;}
+
+/*TAGS*/
+h1 {margin:0;padding: 0;font: 2.2em "Times new roman"; color:#000;}
+h2 {margin:0;padding: 0;font:2.0em "Times New Roman";color:#000;}
+h3 {margin: 0;padding:0;font:1.8em "Times New Roman";color:#000;}
+h4 {margin:0;padding: 0;font:bold 1.6em "Times New Roman";color:#000;}
+dl, dt, dd, form {margin:0;padding: 0;}
+input {margin:0;vertical-align:middle;}
+p {margin: 0;padding:5px 0;}
+select {vertical-align:middle;}
+table {border-spacing: 0;border-collapse: collapse;}
+table td {padding:0;text-align:left;vertical-align:top;}
+ul {padding: 20px 10px 30px;border:1px solid #000;float:left;width:200px;border-radius: 10px;margin:20px}
+li {
+    list-style: none;
+    padding: 5px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    font: 12px arial;
+    margin:10px 0 0 0;
+    cursor: pointer;
+}
+.active {
+    background: red;
+}
+
+
+
+/*FONT*/
+html {font-size:100%;}
+body {font:62.5%/1.5 Tahoma, sans; color:#000000}
+table, td, th, ul, textarea, input, select {font: 1em/1.5 Tahoma;}
