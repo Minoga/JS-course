@@ -1,12 +1,13 @@
 var Button = function(name, el) {
     this.name = name;
     el.addEventListener('click', this.onclick.bind(this))
+    this.func = this.log.bind(this);
 };
-Button.prototype.log = function(name) {
-    console.log(name)
+Button.prototype.log = function() {
+    console.log(this.name)
 }
 Button.prototype.onclick = function() {
-    this.log(this.name);
-    setTimeout(this.log.bind(this,this.name), 1000);
-    setTimeout(this.log.bind(this,this.name), 2000);
+    this.log();
+    setTimeout(this.func, 1000);
+    setTimeout(this.func, 2000);
 };
