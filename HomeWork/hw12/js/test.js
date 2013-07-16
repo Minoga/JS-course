@@ -8,6 +8,7 @@ JS.extend = function (prototype) {
     };
     f.prototype = prototype;
     f.prototype.constructor = f;
+    f.prototype.constructor.extend = this.extend;
     return f;
 };
 
@@ -29,13 +30,6 @@ var Class = JS.extend({
     }
 });
 
-Class.extend = function(proto){
-    var f = function(){
-        Class.call(this);
-    };
-    f.prototype = Object.create(Class.prototype);
-    return f;
-};
 
 /**
  * @class ChildClass
@@ -51,9 +45,4 @@ var ChildClass = Class.extend({
     }
 });
 
-
-
-
-
-
-
+var child = new ChildClass;
