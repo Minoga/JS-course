@@ -6,9 +6,16 @@ JS.extend = function (prototype) {
     var f = function(){
         this._init();
     };
-    f.prototype = prototype;
+    for (var property in this.prototype) {
+        if (this.prototype.hasOwnProperty(property)) {
+            f.prototype[property] = this.prototype[property];
+        }
+    }
+    for (property in prototype) {
+        f.prototype[property] = prototype[property];
+    }
     f.prototype.constructor = f;
-    f.prototype.constructor.extend = this.extend;
+    f.extend = this.extend;
     return f;
 };
 
@@ -42,7 +49,29 @@ var ChildClass = Class.extend({
      */
     _init: function () {
         Class.prototype._init.call(this);
+    },
+
+    method: function () {
+        console.log('metsdfsdfsfsfhod');
+    }
+});
+var ChildChildClass = ChildClass.extend({
+    /**
+     * @constructor
+     * @protected
+     */
+    _init: function () {
+        ChildClass.prototype._init.call(this);
+    },
+
+    method: function () {
+        console.log('ChildClass');
     }
 });
 
-var child = new ChildClass;
+var childChildClass = new ChildChildClass;
+childChildClass.method();
+var childClass = new ChildClass;
+childClass.method();
+var child = new Class;
+child.method();
