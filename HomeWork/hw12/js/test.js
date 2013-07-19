@@ -6,12 +6,8 @@ JS.extend = function (prototype) {
     var f = function(){
         this._init();
     };
-    for (var property in this.prototype) {
-        if (this.prototype.hasOwnProperty(property)) {
-            f.prototype[property] = this.prototype[property];
-        }
-    }
-    for (property in prototype) {
+    f.prototype = Object.create(this.prototype);
+    for (var property in prototype) {
         f.prototype[property] = prototype[property];
     }
     f.prototype.constructor = f;
@@ -75,3 +71,4 @@ var childClass = new ChildClass;
 childClass.method();
 var child = new Class;
 child.method();
+console.log(childClass instanceof Class);
