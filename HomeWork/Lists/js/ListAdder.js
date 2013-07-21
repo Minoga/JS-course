@@ -1,19 +1,29 @@
+/**
+ * @class ListAdder
+ * @extends List
+ * @param {HTMLElement} el
+ * @param {Manager} manager
+ * @constructor
+ */
 var ListAdder = function(el, manager) {
     List.call(this, el);
-    this.manager = manager;
+    /**
+     *
+     * @type {Manager}
+     * @private
+     */
+    this._manager = manager;
 };
 inherit(ListAdder, List);
-
-ListAdder.prototype.__handleDrop = function(e) {
-    List.prototype.__handleDrop.call(this, e);
-    this.__addItem();
-    console.log(this);
-};
-
-ListAdder.prototype.__addItem = function() {
-    var on = List.dragSrc.cloneNode(true);
-    on.addEventListener('dragstart', this.__handleDragStart);
-    this.manager.__lists[0].appendChild(on);
+/**
+ * @param {Event} e
+ * @protected
+*/
+ListAdder.prototype._handleDrop = function(e) {
+    List.prototype._handleDrop.call(this, e);
+    var cloneLi = List.dragSrc.cloneNode(true);
+    cloneLi.addEventListener('dragstart', this._handleDragStart);
+    this._manager.addToFirstList(cloneLi);
 };
 
 

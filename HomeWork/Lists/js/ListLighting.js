@@ -1,21 +1,41 @@
+/**
+ * @class ListLigthing
+ * @extends List
+ * @param el
+ * @constructor
+ */
 var ListLigthing = function(el) {
     List.call(this, el);
+    /**
+     * @type {Function}
+     * @private
+     */
+    this._effect = this._twinkle.bind(this);
 };
+
 inherit(ListLigthing, List);
-ListLigthing.prototype.__twinkle = function(){
-    if (!('active' == this.el.classList[0])) {
-        this.el.classList.add('active');
+
+/**
+ * @private
+ */
+ListLigthing.prototype._twinkle = function(){
+    if (!('active' == this._el.classList[0])) {
+        this._el.classList.add('active');
     } else {
-        this.el.classList.remove('active');
+        this._el.classList.remove('active');
     }
 };
-ListLigthing.prototype.__handleDrop = function(e) {
-    List.prototype.__handleDrop.call(this, e);
-    setTimeout(function(){this.__twinkle()}.bind(this), 200);
-    setTimeout(function(){this.__twinkle()}.bind(this), 400);
-    setTimeout(function(){this.__twinkle()}.bind(this), 600);
-    setTimeout(function(){this.__twinkle()}.bind(this), 800);
-    console.log(this);
+/**
+ *
+ * @param {Event} e
+ * @protected
+ */
+ListLigthing.prototype._handleDrop = function(e) {
+    List.prototype._handleDrop.call(this, e);
+    setTimeout(this._effect, 200);
+    setTimeout(this._effect, 400);
+    setTimeout(this._effect, 600);
+    setTimeout(this._effect, 800);
 };
 
 

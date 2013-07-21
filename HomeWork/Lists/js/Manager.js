@@ -1,9 +1,28 @@
-var Manager = function(el) {
-
+/**
+ * @class Manager
+ * @constructor
+ */
+var Manager = function() {
 };
-Manager.prototype.__lists = [];
-Manager.prototype.addList = function(list) {
-    this.__lists.push(list);
+
+/**
+ * @type {Array}
+ * @private
+ */
+Manager.prototype._lists = [];
+
+/**
+ * @param {List} list
+ */
+Manager.prototype.pushList = function(list) {
+    this._lists.push(list);
+};
+
+/**
+ * @param {HTMLElement} el
+ */
+Manager.prototype.addToFirstList = function(el) {
+    this._lists[0].addItem(el);
 };
 
 
