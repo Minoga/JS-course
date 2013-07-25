@@ -98,18 +98,40 @@ $el.css('padding'); // '20px'
 
 
 $el.addClass('test');
-console.assert($el.className.indexOf("test") > -1, "addClass not work");
+console.assert($el[0].className.indexOf("test") > -1, "addClass not work");
+console.testClass($el, 'test', true);
 
-console.assert($el.hasClass("test") == true, "hasClass not work");
+console.assert($el[0].hasClass("test") == true, "hasClass not work");
+console.hasClass($el, 'test');
 
 $el.removeClass("test");
-console.assert($el.className.indexOf("test") == -1, "removeClass not work");
+console.assert($el[0].className.indexOf("test") == -1, "removeClass not work");
+console.testClass($el, 'test', false);
 
 $el.toggleClass("test");
-console.assert($el.className.indexOf("test") > -1, "toggleClass on not work");
+console.assert($el[0].className.indexOf("test") > -1, "toggleClass on not work");
+console.testClass($el, 'test', true);
 
 $el.toggleClass("test");
-console.assert($el.className.indexOf("test")==-1, "toggleClass off  not work");
+console.assert($el[0].className.indexOf("test") == -1, "toggleClass off  not work");
+console.testClass($el, 'test', false);
+
+var el = document.getElementById('lib');
+var div = document.createElement('div');
+$(div).appendTo(el);
+console.assert(div.parentNode == el, "appendTo does  not work");
+console.assert(div.previousSibling.className == test, "appendTo does  not work");
+console.assert(el.lastChild == div, "appendTo does  not work");
+
+$(div).prependTo(el);
+console.assert(div.parentNode == el, "prependTo does  not work");
+console.assert(div.nextSibling.className == test, "prependTo does  not work");
+console.assert(el.firstChild == div, "prependTo does  not work");
+
+$(el).append(div);
+console.assert(div.parentNode == el, "append does  not work");
+console.assert(div.previousSibling.className == test, "append does  not work");
+console.assert(el.lastChild == div, "appenddoes  not work");
 
 
 
