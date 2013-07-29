@@ -10,22 +10,36 @@
      * @class Lib
      */
     var Lib = function (selector, context) {
-        return new Lib.fn.init(selector, context);
+        return new Lib.fn._init(selector, context);
     };
 
     Lib.prototype = Object.create(Array.prototype);
     Lib.prototype.constructor = Lib;
-    Lib.prototype.init = function (selector, context) {
+    Lib.prototype._init = function (selector, context) {
+        if (!selector)
+            return this;
+        if (selector.indexOf("<") == 0){
+            var element = document.createElement('div');
+            element.innerHTML = selector;
+            var fragment = document.createDocumentFragment();
+            var child = element.firstChild;
+            while (child){
+                fragment.appendChild(child.cloneNode(true));
+                child = child.nextSibling;
+            }
+            this.push(fragment);
+            return this;
+        }
+
         var elements = context ? document.querySelectorAll(context + " " + selector) : document.querySelectorAll(selector);
-        for (var i = 0; i < elements.length; i++)
-            this.push(elements[i]);
+        Array.prototype.push.apply(this, elements);
         return this;
     };
 
 
     Lib.fn = Lib.prototype
 
-    Lib.fn.init.prototype = Lib.fn;
+    Lib.fn._init.prototype = Lib.fn;
 
     /**
      * @param {String} selector
@@ -33,18 +47,13 @@
      * @public
      */
     Lib.prototype.find = function (selector) {
-        var newThis = [],
+        var newThis = new Lib;
             collection;
         this.forEach(function(item){
             collection = item.querySelectorAll(selector);
-            for (var i = 0; i < collection.length; i++) {
-                newThis.push(collection[i]);
-            }
+            Array.prototype.push.apply(newThis, collection);
         });
-        this.length = 0;
-        for (var i = 0; i < newThis.length; i++ )
-            this.push(newThis[i]);
-        return this;
+        return newThis;
     };
 
     /**
