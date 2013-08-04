@@ -58,7 +58,6 @@ var handlerInvoked = false;
 $testsInCollection.on('click', function () {
     handlerInvoked = true;
 });
-
 tests[0].click();
 console.assert(handlerInvoked);
 

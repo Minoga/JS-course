@@ -12,3 +12,8 @@ console.compareCss = function (ar1, properties) {
             this.assert(ar1[i].style[property] == properties[property], "error css");
     }
 };
+console.testClass = function (el, className, flag) {
+    el.forEach(function(item){
+        console.assert(flag ? (item.className.indexOf(className) > -1) : (item.className.indexOf(className) == -1), "class functions not work");
+    });
+};

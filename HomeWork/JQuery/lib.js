@@ -18,20 +18,21 @@
     Lib.prototype._init = function (selector, context) {
         if (!selector)
             return this;
+        if (selector.nodeType && (selector.nodeType == 1)){
+            this.push(selector);
+            return this;
+        }
         if (selector.indexOf("<") == 0){
             var element = document.createElement('div');
             element.innerHTML = selector;
-            var fragment = document.createDocumentFragment();
             var child = element.firstChild;
             while (child){
-                fragment.appendChild(child.cloneNode(true));
+                this.push(child);
                 child = child.nextSibling;
             }
-            this.push(fragment);
             return this;
         }
-
-        var elements = context ? document.querySelectorAll(context + " " + selector) : document.querySelectorAll(selector);
+        var elements = document.querySelectorAll(selector);
         Array.prototype.push.apply(this, elements);
         return this;
     };
@@ -47,13 +48,51 @@
      * @public
      */
     Lib.prototype.find = function (selector) {
-        var newThis = new Lib;
+        var newThis = Lib();
             collection;
         this.forEach(function(item){
             collection = item.querySelectorAll(selector);
             Array.prototype.push.apply(newThis, collection);
         });
         return newThis;
+    };
+
+    Lib._events = [];
+    /**
+     *
+     * @param {HTMLNode} node
+     * @param {String} eventName
+     * @param {Function} handler
+     * @private
+     */
+    Lib.prototype._addEvent =  function (node, eventName, handler) {
+        if (!(node in Lib._events)) {
+            Lib._events[node] = {};
+        }
+        if (!(eventName in Lib._events[node])) {
+            Lib._events[node][eventName] = [];
+        }
+        Lib._events[node][eventName].push(handler);
+        node.addEventListener(eventName, handler);
+    };
+
+    /**
+     *
+     * @param {HTMLNode} node
+     * @param {String} eventName
+     * @private
+     */
+    Lib.prototype._removeAllEvents = function (node, eventName) {
+        if(node in Lib._events) {
+            var handlers = Lib._events[node];
+            if(eventName in handlers) {
+                var eventHandlers = handlers[eventName];
+                for(var i = eventHandlers.length; i--;) {
+                    var handler = eventHandlers[i];
+                    node.removeEventListener(eventName, handler);
+                }
+            }
+        }
     };
 
     /**
@@ -63,7 +102,9 @@
      * @public
      */
     Lib.prototype.on = function (eventName, callback) {
-        // TODO
+        this.forEach(function(item){
+            Lib.prototype._addEvent(item, eventName, callback)
+        })
     };
 
     /**
@@ -73,7 +114,15 @@
      * @public
      */
     Lib.prototype.off = function (eventName, callback) {
-        // TODO
+        if (arguments.length == 2){
+            this.forEach(function(item){
+                item.removeEventListener(eventName, callback);
+            });
+            return
+        }
+        this.forEach(function(item){
+            Lib.prototype._removeAllEvents(item, eventName)
+        })
     };
 
     /**
@@ -82,7 +131,9 @@
      * @public
      */
     Lib.prototype.click = function (callback) {
-        // TODO
+        this.forEach(function(item){
+            item.click();
+        });
     };
 
     /**
@@ -99,8 +150,9 @@
             return this;
         }
         if (css.indexOf(":") != -1){
-            var property = css.substring(0, css.indexOf(":"));
-            var value = css.substring(css.indexOf(":")+1);
+            var positionChar = css.indexOf(":");
+            var property = css.substring(0, positionChar);
+            var value = css.substring(positionChar + 1);
             this.forEach(function(item){
                     item.style[property] = value;
             });
@@ -126,7 +178,9 @@
      * @public
      */
     Lib.prototype.addClass = function (className) {
-        // TODO
+        this.forEach(function(item){
+            item.classList.add(className)
+        });
     };
 
     /**
@@ -135,7 +189,7 @@
      * @public
      */
     Lib.prototype.hasClass = function (className) {
-        // TODO
+        return this[0].classList.contains(className);
     };
 
     /**
@@ -144,7 +198,9 @@
      * @public
      */
     Lib.prototype.removeClass = function (className) {
-        // TODO
+        this.forEach(function(item){
+            item.classList.remove(className);
+        });
     };
 
     /**
@@ -153,7 +209,9 @@
      * @public
      */
     Lib.prototype.toggleClass = function (className) {
-        // TODO
+        this.forEach(function(item){
+            item.classList.toggle(className);
+        });
     };
 
     /**
@@ -162,7 +220,9 @@
      * @public
      */
     Lib.prototype.appendTo = function (element) {
-        // TODO
+        this.forEach(function(item){
+            element.appendChild(item);
+        });
     };
 
     /**
@@ -171,7 +231,9 @@
      * @public
      */
     Lib.prototype.prependTo = function (element) {
-        // TODO
+        this.forEach(function(item){
+            element.insertBefore(item, element.firstChild);
+        });
     };
 
     /**
@@ -180,7 +242,9 @@
      * @public
      */
     Lib.prototype.append = function (element) {
-        // TODO
+        this.forEach(function(item){
+            item.appendChild(element);
+        });
     };
 
     /**
@@ -189,7 +253,9 @@
      * @public
      */
     Lib.prototype.prepend = function (element) {
-        // TODO
+        this.forEach(function(item){
+            item.insertBefore(element, item.firstChild);
+        });
     };
 
     /**
@@ -198,7 +264,9 @@
      * @public
      */
     Lib.prototype.insertAfter = function (element) {
-        // TODO
+        this.forEach(function(item){
+            item.parentNode.insertBefore(element, item.nextSibling);
+        });
     };
 
     /**
@@ -207,7 +275,9 @@
      * @public
      */
     Lib.prototype.insertBefore = function (element) {
-        // TODO
+        this.forEach(function(item){
+            item.parentNode.insertBefore(element, item);
+        });
     };
 
     window.$ = Lib;
