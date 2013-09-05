@@ -1,18 +1,20 @@
 if (typeof define != 'function') {
     var define = function(callback){
-        ofio = callback();
+        Ofio = callback();
     }
 }
 
 define(function () {
-    var JS = function(){
+    var Ofio = function(){
 
     };
-    JS.extend = function (prototype) {
+    Ofio.extend = function (prototype) {
         var f = function(){
             this._init();
         };
-        f.prototype = Object.create(this.prototype);
+        function F() {}
+        F.prototype = this.prototype;
+        f.prototype = new F;
         for (var property in prototype) {
             f.prototype[property] = prototype[property];
         }
@@ -20,5 +22,5 @@ define(function () {
         f.extend = this.extend;
         return f;
     };
-    return JS;
+    return Ofio;
 });
