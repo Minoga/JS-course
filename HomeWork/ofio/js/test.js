@@ -7,7 +7,6 @@ define(["Ofio"], function (Ofio) {
              * @protected
              */
             _init: function () {
-
                 console.log('init');
             },
 
@@ -15,8 +14,6 @@ define(["Ofio"], function (Ofio) {
              * @public
              */
             method: function () {
-
-
                 return 'method';
             }
         });
@@ -41,7 +38,7 @@ define(["Ofio"], function (Ofio) {
                      * @protected
                      */
                     _init: function () {
-                        Class.prototype._init.call(this);
+                        this._super()
                     },
 
                     method: function () {
@@ -59,7 +56,7 @@ define(["Ofio"], function (Ofio) {
                  * @protected
                  */
                 _init: function () {
-                    Class.prototype._init.call(this);
+                    this._super();
                 },
 
                 method: function () {
