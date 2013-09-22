@@ -11,12 +11,10 @@ define(function () {
     // Create a new Class that inherits from this class
     Ofio.extend = function(prop) {
         var _super = this.prototype;
+        var f = function(){};
+        f.prototype = this.prototype;
+        var prototype = new(f);
 
-        // Instantiate a base class (but only create the instance,
-        // don't run the init constructor)
-        initializing = true;
-        var prototype = Object.create(this.prototype);
-        initializing = false;
 
         // Copy the properties over onto the new prototype
         for (var name in prop) {
@@ -35,7 +33,7 @@ define(function () {
         function Class() {
             // All construction is actually done in the init method
             //if ( !initializing && this.init )
-            //    this.init();
+            this._init.apply(this, arguments);
         }
 
         // Populate our constructed prototype object
