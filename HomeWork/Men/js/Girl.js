@@ -1,4 +1,4 @@
 function Girl(level, girlName) {
-    this.bitchLevel = level;
+    this.Level = level;
     this.girlName = girlName;
 }
